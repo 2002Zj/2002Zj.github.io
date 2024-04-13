@@ -367,8 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/leetCode-Hot100/">
-                                <span class="chip bg-color">-leetCode -Hot100</span>
+                            <a href="/tags/leetCode/">
+                                <span class="chip bg-color">leetCode</span>
+                            </a>
+                        
+                            <a href="/tags/Hot100/">
+                                <span class="chip bg-color">Hot100</span>
                             </a>
                         
                     </div>
@@ -399,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-04-11
+                    2024-04-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    7 分
                 </div>
                 
 
@@ -578,6 +582,54 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="2024-04-12"><a href="#2024-04-12" class="headerlink" title="2024.04.12"></a>2024.04.12</h2><h3 id="7-接雨水"><a href="#7-接雨水" class="headerlink" title="7.接雨水"></a>7.接雨水</h3><p>给定 <code>n</code> 个非负整数表示每个宽度为 <code>1</code> 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png" alt="img"></p>
+<pre><code>输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]
+输出：6
+</code></pre>
+<p>解法1：利用双指针记录前缀最大高度和后缀最大高度（preMax和sufMax）表示，若preMax&lt;sufMax，那么接水量的高度最高位preMax,再用preMax-当前的高度，得到当前位置的接水量，反之preMax&gt;=sufMax也用同样方式处理，最后将接水量累加起来。</p>
+<p>解法2：利用单调栈的特性，我们要找到当前位置的接水量，就要找到左边大于当前高度最近的元素和右边大于当前高度最近的元素，才能接住水。那么就可以利用单调栈来处理。具体解法如下：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">trap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 解法1：双指针</span>
+        <span class="token comment" spellcheck="true">// int n = height.length;</span>
+        <span class="token comment" spellcheck="true">// int left = 0, right = n - 1;</span>
+        <span class="token comment" spellcheck="true">// int res = 0;// 储水量</span>
+        <span class="token comment" spellcheck="true">// int preMax = 0, sufMax = 0;// 前缀最大值和后缀最大值</span>
+        <span class="token comment" spellcheck="true">// while (left &lt;= right) {</span>
+        <span class="token comment" spellcheck="true">// preMax = Math.max(preMax, height[left]);</span>
+        <span class="token comment" spellcheck="true">// sufMax = Math.max(sufMax, height[right]);</span>
+        <span class="token comment" spellcheck="true">// if (preMax &lt; sufMax) {</span>
+        <span class="token comment" spellcheck="true">// res += preMax - height[left];</span>
+        <span class="token comment" spellcheck="true">// left++;</span>
+        <span class="token comment" spellcheck="true">// } else {</span>
+        <span class="token comment" spellcheck="true">// res += sufMax - height[right];</span>
+        <span class="token comment" spellcheck="true">// right--;</span>
+        <span class="token comment" spellcheck="true">// }</span>
+        <span class="token comment" spellcheck="true">// }</span>
+        <span class="token comment" spellcheck="true">// return res;</span>
+        <span class="token comment" spellcheck="true">// 解法2：利用单调栈，栈中维护一个递增的栈，栈顶为最小元素的索引</span>
+        <span class="token comment" spellcheck="true">//注意:栈中存放是索引，而不是值</span>
+        Deque<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> n <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> height<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> height<span class="token punctuation">[</span>stack<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> top <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 取出栈顶元素</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">int</span> left <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 左边大于height[i]最近的元素的索引</span>
+                <span class="token keyword">int</span> curWidth <span class="token operator">=</span> i <span class="token operator">-</span> left <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 宽</span>
+                <span class="token keyword">int</span> curHeight <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> height<span class="token punctuation">[</span>top<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 高</span>
+                res <span class="token operator">+=</span> curHeight <span class="token operator">*</span> curWidth<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -642,8 +694,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/leetCode-Hot100/">
-                                    <span class="chip bg-color">-leetCode -Hot100</span>
+                                <a href="/tags/leetCode/">
+                                    <span class="chip bg-color">leetCode</span>
+                                </a>
+                            
+                                <a href="/tags/Hot100/">
+                                    <span class="chip bg-color">Hot100</span>
                                 </a>
                             
                         </div>
@@ -722,18 +778,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/04/10/abbrlink%E9%87%8D%E5%88%B7Hot100/">
+                <a href="/2024/04/12/abbrlinkComparable%E5%92%8CComparator%E7%9A%84%E6%AF%94%E8%BE%83%E5%92%8C%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="重刷Hot100">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Comparable和Comparator的比较和使用">
                         
-                        <span class="card-title">重刷Hot100</span>
+                        <span class="card-title">Comparable和Comparator的比较和使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -743,9 +798,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-12
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -758,12 +813,15 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/leetCode-Hot100/">
-                        <span class="chip bg-color">-leetCode -Hot100</span>
+                    <a href="/tags/Comparable/">
+                        <span class="chip bg-color">Comparable</span>
+                    </a>
+                    
+                    <a href="/tags/Comparator/">
+                        <span class="chip bg-color">Comparator</span>
                     </a>
                     
                 </div>
@@ -995,7 +1053,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">1.4k</span>
+                        class="white-color">3.1k</span>
             
             
             

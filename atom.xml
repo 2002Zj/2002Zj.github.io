@@ -6,7 +6,7 @@
   <link href="http://2002zj.github.io/atom.xml" rel="self"/>
   
   <link href="http://2002zj.github.io/"/>
-  <updated>2024-04-11T15:06:37.418Z</updated>
+  <updated>2024-04-13T08:23:23.939Z</updated>
   <id>http://2002zj.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Comparable和Comparator的比较和使用</title>
+    <link href="http://2002zj.github.io/2024/04/12/abbrlinkComparable%E5%92%8CComparator%E7%9A%84%E6%AF%94%E8%BE%83%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>http://2002zj.github.io/2024/04/12/abbrlinkComparable%E5%92%8CComparator%E7%9A%84%E6%AF%94%E8%BE%83%E5%92%8C%E4%BD%BF%E7%94%A8/</id>
+    <published>2024-04-12T03:28:04.000Z</published>
+    <updated>2024-04-13T08:23:23.939Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="LeetCode" scheme="http://2002zj.github.io/categories/LeetCode/"/>
+    
+    
+    <category term="Comparable" scheme="http://2002zj.github.io/tags/Comparable/"/>
+    
+    <category term="Comparator" scheme="http://2002zj.github.io/tags/Comparator/"/>
+    
+  </entry>
+  
+  <entry>
     <title>重刷Hot100</title>
     <link href="http://2002zj.github.io/2024/04/10/abbrlink%E9%87%8D%E5%88%B7Hot100/"/>
     <id>http://2002zj.github.io/2024/04/10/abbrlink%E9%87%8D%E5%88%B7Hot100/</id>
     <published>2024-04-10T14:24:09.000Z</published>
-    <updated>2024-04-11T15:06:37.418Z</updated>
+    <updated>2024-04-12T14:57:03.216Z</updated>
     
     
       
@@ -37,7 +64,9 @@
     <category term="LeetCode" scheme="http://2002zj.github.io/categories/LeetCode/"/>
     
     
-    <category term="-leetCode -Hot100" scheme="http://2002zj.github.io/tags/leetCode-Hot100/"/>
+    <category term="leetCode" scheme="http://2002zj.github.io/tags/leetCode/"/>
+    
+    <category term="Hot100" scheme="http://2002zj.github.io/tags/Hot100/"/>
     
   </entry>
   
@@ -67,7 +96,7 @@
     <link href="http://2002zj.github.io/2024/04/08/abbrlink%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
     <id>http://2002zj.github.io/2024/04/08/abbrlink%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
     <published>2024-04-08T10:32:33.000Z</published>
-    <updated>2024-04-08T11:03:28.961Z</updated>
+    <updated>2024-04-12T16:03:48.298Z</updated>
     
     
       
