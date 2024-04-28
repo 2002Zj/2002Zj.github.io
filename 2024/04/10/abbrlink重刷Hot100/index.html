@@ -403,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-04-25
+                    2024-04-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.7k
+                    5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    20 分
+                    21 分
                 </div>
                 
 
@@ -909,6 +909,26 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="2024-04-28"><a href="#2024-04-28" class="headerlink" title="2024.04.28"></a>2024.04.28</h2><h3 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27. 移除元素"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/">27. 移除元素</a></h3><p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <strong><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <strong><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地 </a>修改输入数组</strong>。元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<pre><code>输入：nums = [3,2,2,3], val = 3
+输出：2, nums = [2,2]
+解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。
+</code></pre>
+<h4 id="解题思路：-7"><a href="#解题思路：-7" class="headerlink" title="解题思路："></a>解题思路：</h4><h4 id="解题思路：-8"><a href="#解题思路：-8" class="headerlink" title="解题思路："></a>解题思路：</h4><p>利用双指针，定义一个slow指针，遍历数组，若当前元素的值不等于val值，则nums[slow]=nums[i]，并且slow++，最后返回slow，就是一处val元素后的数组大小。</p>
+<h4 id="代码：-6"><a href="#代码：-6" class="headerlink" title="代码："></a>代码：</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">removeElement</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//利用双指针，一个指针遍历数组，一个用来不等于val时，需要交换的标记</span>
+        <span class="token keyword">int</span> slow<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">!=</span>val<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                nums<span class="token punctuation">[</span>slow<span class="token operator">++</span><span class="token punctuation">]</span><span class="token operator">=</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> slow<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -1332,7 +1352,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.9k</span>
+                        class="white-color">6.3k</span>
             
             
             
