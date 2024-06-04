@@ -403,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-01
+                    2024-06-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.2k
+                    5.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    22 分
+                    24 分
                 </div>
                 
 
@@ -954,6 +954,52 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="2024-06-04"><a href="#2024-06-04" class="headerlink" title="2024.06.04"></a>2024.06.04</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/">LCR 183. 望远镜中最高的海拔</a></p>
+<p>科技馆内有一台虚拟观景望远镜，它可以用来观测特定纬度地区的地形情况。该纬度的海拔数据记于数组 <code>heights</code> ，其中 <code>heights[i]</code> 表示对应位置的海拔高度。请找出并返回望远镜视野范围 <code>limit</code> 内，可以观测到的最高海拔值。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：heights = [14,2,27,-5,28,13,39], limit = 3
+输出：[27,27,28,28,39]
+解释：
+  滑动窗口的位置                最大值
+---------------               -----
+[14 2 27] -5 28 13 39          27
+14 [2 27 -5] 28 13 39          27
+14 2 [27 -5 28] 13 39          28
+14 2 27 [-5 28 13] 39          28
+14 2 27 -5 [28 13 39]          39
+</code></pre>
+<h4 id="解题思路：-10"><a href="#解题思路：-10" class="headerlink" title="解题思路："></a>解题思路：</h4><p>这题和leetcode 239 滑动窗口求最大值相同。利用滑动窗口+单调栈来求解。维护一个单调栈，里面保存可能成为最大值的一系列数。队首始终是当前滑动窗口中最大值。</p>
+<p>具体思路：当添加一个元素heights[i]时候，我们height[i]是否大于前面入队的值，若大于则将前面的值出队，否则就入队，成为可能的最大值。当滑动窗口继续向前滑动时，若队首元素是将要出队的元素，则执行出队操作。当执行到满足第一个k的时候，开始收获值，队首元素即为当前滑动窗口的最大值。</p>
+<h4 id="代码：-8"><a href="#代码：-8" class="headerlink" title="代码："></a>代码：</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">maxAltitude</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> heights<span class="token punctuation">,</span> <span class="token keyword">int</span> limit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//滑动窗口+单调队列，可以自定义单调队列，活利用双端队列模拟单调队列</span>
+        <span class="token comment" spellcheck="true">//队列中存放数组的下标，更好实现单调队列</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>heights<span class="token punctuation">.</span>length<span class="token operator">==</span><span class="token number">0</span> <span class="token operator">||</span> limit<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        ArrayDeque<span class="token operator">&lt;</span>Integer<span class="token operator">></span>deque<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ArrayDeque</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> n<span class="token operator">=</span>heights<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token operator">-</span>limit<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//结果数组</span>
+        <span class="token keyword">int</span> index<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//维护队列头节点在[i-limit+1,i]范围中，否则就移除头节点</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>deque<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> deque<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>i<span class="token operator">-</span>limit<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                deque<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>deque<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> heights<span class="token punctuation">[</span>deque<span class="token punctuation">.</span><span class="token function">peekLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">&lt;</span>heights<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//加入的新的下标对应的值大于尾节点，则移除尾节点，因为这些节点不可能是最大值</span>
+                deque<span class="token punctuation">.</span><span class="token function">pollLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">//加入当前节点</span>
+            deque<span class="token punctuation">.</span><span class="token function">offer</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//当i符合第一个k时候，开始收获值</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">>=</span>limit<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                res<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token operator">=</span>heights<span class="token punctuation">[</span>deque<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                index<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -1377,7 +1423,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">6.5k</span>
+                        class="white-color">7.1k</span>
             
             
             
