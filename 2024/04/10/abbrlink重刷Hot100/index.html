@@ -403,21 +403,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2024-06-04
+                    2024-06-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.8k
+                    6.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    24 分
+                    27 分
                 </div>
                 
 
@@ -1000,6 +1000,53 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h2 id="2024-06-05"><a href="#2024-06-05" class="headerlink" title="2024.06.05"></a>2024.06.05</h2><h3 id="LCR-189-设计机械累加器"><a href="#LCR-189-设计机械累加器" class="headerlink" title="LCR 189. 设计机械累加器"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/qiu-12n-lcof/">LCR 189. 设计机械累加器</a></h3><p>请设计一个机械累加器，计算从 1、2… 一直累加到目标数值 <code>target</code> 的总和。注意这是一个只能进行加法操作的程序，不具备乘除、if-else、switch-case、for 循环、while 循环，及条件判断语句等高级功能。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入: target = 5
+输出: 15
+</code></pre>
+<h4 id="解题思路：-11"><a href="#解题思路：-11" class="headerlink" title="解题思路："></a>解题思路：</h4><p>方法1：通过循环遍历，直接进行累加（不可行，不能使用循环）</p>
+<p>方法2：递归，但是递归结束条件不能使用if或者其它条件判断语句，这是我们可以想到逻辑运算中的逻辑或 || 和逻辑与 &amp;&amp; 短路或 | 和短路与 &amp; 。这些运算的作用。那么就可以使用 &amp;&amp; 来进行递归条件的判断。</p>
+<h4 id="代码：-9"><a href="#代码：-9" class="headerlink" title="代码："></a>代码：</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> res<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">mechanicalAccumulator</span><span class="token punctuation">(</span><span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//逻辑与 &amp;&amp; 若第一个条件false,则不会执行第二个条件，这样就不使用判断语句，而实现递归的终止。</span>
+        <span class="token keyword">boolean</span> flag<span class="token operator">=</span>target<span class="token operator">></span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> <span class="token function">mechanicalAccumulator</span><span class="token punctuation">(</span>target<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token number">0</span><span class="token punctuation">;</span>
+        res<span class="token operator">+=</span>target<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="LCR-191-按规则计算统计结果"><a href="#LCR-191-按规则计算统计结果" class="headerlink" title="LCR 191. 按规则计算统计结果"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/gou-jian-cheng-ji-shu-zu-lcof/">LCR 191. 按规则计算统计结果</a></h3><p>​		为了深入了解这些生物群体的生态特征，你们进行了大量的实地观察和数据采集。数组 <code>arrayA</code> 记录了各个生物群体数量数据，其中 <code>arrayA[i]</code> 表示第 <code>i</code> 个生物群体的数量。请返回一个数组 <code>arrayB</code>，该数组为基于数组 <code>arrayA</code> 中的数据计算得出的结果，其中 <code>arrayB[i]</code> 表示将第 <code>i</code> 个生物群体的数量从总体中排除后的其他数量的乘积。</p>
+<p>注意：不能使用除法运算</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：arrayA = [2, 4, 6, 8, 10]
+输出：[1920, 960, 640, 480, 384]
+</code></pre>
+<h4 id="解题思路：-12"><a href="#解题思路：-12" class="headerlink" title="解题思路："></a>解题思路：</h4><p>​		首先我们可以想到的思路是先所有元素进行累积得到accumulate，则arrayB[i]的值等于accumulate / arrayA[i],但是本题不能使用除法运算。就要想其它办法，我们可以通过两次遍历，第一次遍历计算元素 i 左边元素的乘积是多少，第二次遍历计算元素 i 右边元素的乘积，并且将左边乘积与右边乘积相乘得得到arrayB[i]的值。</p>
+<h4 id="代码：-10"><a href="#代码：-10" class="headerlink" title="代码："></a>代码：</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">statisticalResult</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arrayA<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//不使用除法运算</span>
+        <span class="token comment" spellcheck="true">//先计算i的左边的乘积，再计算i的右边的乘积，最后得到的就是除i位置其他元素的乘积</span>
+        <span class="token keyword">int</span> n<span class="token operator">=</span>arrayA<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//先初始化为1</span>
+        Arrays<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//计算左边乘积</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//res[i]表示i之前元素的乘积，不包括i元素</span>
+            res<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>res<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>arrayA<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//右边初始值，用于后续计算右边的乘积</span>
+        <span class="token keyword">int</span> right<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>i<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            right<span class="token operator">*=</span>arrayA<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//记录右边的乘积</span>
+            res<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span>res<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">*</span>right<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//更新，i位置乘上右边元素的乘积</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -1423,7 +1470,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.1k</span>
+                        class="white-color">7.8k</span>
             
             
             
